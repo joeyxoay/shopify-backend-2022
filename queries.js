@@ -54,8 +54,7 @@ const editItem = (request, response) => {
     //         quantity:13
     //     }
   
-    pool.query(
-      'UPDATE public.item SET title = $1, price = $2 , description = $3, quantity = $4 WHERE id = $5', [title, price, description, quantity, id], (error, results) => {
+    pool.query('UPDATE public.item SET title = $1, price = $2 , description = $3, quantity = $4 WHERE id = $5', [title, price, description, quantity, id], (error, results) => {
         if (error) {
           throw error
         }
@@ -66,12 +65,29 @@ const editItem = (request, response) => {
 
 const deleteItem = (request, response) => {
     const id = parseInt(request.params.id)
+    // const { comment } = request.body
+    const { comment } = 
+        {
+            comment: "hard coded comment", 
+        }
+
   
-    pool.query('DELETE FROM public.item WHERE id = $1', [id], (error, results) => {
+    pool.query('UPDATE public.item SET deleted = true, deletion_comment = $1 WHERE id = $2', [comment, id], (error, results) => {
       if (error) {
         throw error
       }
       response.status(200).send(`Item with ID ${id} deleted successfully`)
+    })
+}
+
+const restoreItem = (request, response) => {
+    const id = parseInt(request.params.id)
+  
+    pool.query('UPDATE public.item SET deleted = false WHERE id = $1', [id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Item with ID ${id} restored successfully`)
     })
 }
 
@@ -81,5 +97,6 @@ module.exports = {
     getDeletedItems,
     addItem,
     editItem,
-    deleteItem
+    deleteItem,
+    restoreItem
 }
