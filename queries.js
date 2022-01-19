@@ -41,10 +41,33 @@ const addItem = (request, response) => {
       }
       response.status(201).send(`${title} added successfully`)
     })
-  }
+}
+
+const editItem = (request, response) => {
+    const id = parseInt(request.params.id)
+    const { title, price, description, quantity } = request.body
+    // const { title, price, description, quantity } = 
+    //     {
+    //         title: "edit3", 
+    //         price: 3.3, 
+    //         description: "edit desc 3", 
+    //         quantity:13
+    //     }
+  
+    pool.query(
+      'UPDATE public.item SET title = $1, price = $2 , description = $3, quantity = $4 WHERE id = $5', [title, price, description, quantity, id], (error, results) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`${title} edited successfully`)
+      }
+    )
+}
+
 
 module.exports = {
     getItems,
     getDeletedItems,
-    addItem
+    addItem,
+    editItem
 }
