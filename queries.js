@@ -25,7 +25,26 @@ const getDeletedItems = (request, response) => {
     })
 }
 
+const addItem = (request, response) => {
+    const { title, price, description, quantity } = request.body
+    // const { title, price, description, quantity } = 
+    //     {
+    //         title: "test6", 
+    //         price: 1.6, 
+    //         description: null, 
+    //         quantity:3
+    //     }
+  
+    pool.query('INSERT INTO public.item (title, price, description, quantity) VALUES ($1, $2, $3, $4)', [title, price, description, quantity], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(201).send(`${title} added successfully`)
+    })
+  }
+
 module.exports = {
     getItems,
-    getDeletedItems
+    getDeletedItems,
+    addItem
 }
