@@ -28,16 +28,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
-});
+// app.get('/', (request, response) => {
+//   response.json({ info: 'Node.js, Express, and Postgres API' })
+// });
+app.get('/', function (req, res) {
+  res.render('index',
+  { title : 'Home' }
+  )
+})
 
 app.get('/items', db.getItems)
 app.get('/deletedItems', db.getDeletedItems)
-app.get('/addItem', db.addItem)
-app.get('/editItem/:id', db.editItem)
-app.get('/deleteItem/:id', db.deleteItem)
-app.get('/restoreItem/:id', db.restoreItem)
+app.post('/addItem', db.addItem)
+app.put('/editItem/:id', db.editItem)
+app.put('/deleteItem/:id', db.deleteItem)
+app.put('/restoreItem/:id', db.restoreItem)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

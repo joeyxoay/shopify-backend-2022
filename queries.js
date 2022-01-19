@@ -7,7 +7,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-const getItems = (request, response) => {
+const getItems = async (request, response) => {
     pool.query('SELECT * FROM public.item WHERE deleted = false ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -16,7 +16,7 @@ const getItems = (request, response) => {
     })
 }
 
-const getDeletedItems = (request, response) => {
+const getDeletedItems = async (request, response) => {
     pool.query('SELECT * FROM public.item WHERE deleted = true ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -25,7 +25,7 @@ const getDeletedItems = (request, response) => {
     })
 }
 
-const addItem = (request, response) => {
+const addItem = async (request, response) => {
     const { title, price, description, quantity } = request.body
     // const { title, price, description, quantity } = 
     //     {
@@ -36,14 +36,15 @@ const addItem = (request, response) => {
     //     }
   
     pool.query('INSERT INTO public.item (title, price, description, quantity) VALUES ($1, $2, $3, $4)', [title, price, description, quantity], (error, results) => {
-      if (error) {
+      console.log("reached here")
+        if (error) {
         throw error
       }
       response.status(201).send(`${title} added successfully`)
     })
 }
 
-const editItem = (request, response) => {
+const editItem = async (request, response) => {
     const id = parseInt(request.params.id)
     const { title, price, description, quantity } = request.body
     // const { title, price, description, quantity } = 
@@ -63,14 +64,13 @@ const editItem = (request, response) => {
     )
 }
 
-const deleteItem = (request, response) => {
+const deleteItem = async (request, response) => {
     const id = parseInt(request.params.id)
-    // const { comment } = request.body
-    const { comment } = 
-        {
-            comment: "hard coded comment", 
-        }
-
+    const { comment } = request.body
+    // const { comment } = 
+    //     {
+    //         comment: "hard coded comment", 
+    //     }
   
     pool.query('UPDATE public.item SET deleted = true, deletion_comment = $1 WHERE id = $2', [comment, id], (error, results) => {
       if (error) {
@@ -80,7 +80,7 @@ const deleteItem = (request, response) => {
     })
 }
 
-const restoreItem = (request, response) => {
+const restoreItem = async (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('UPDATE public.item SET deleted = false WHERE id = $1', [id], (error, results) => {
