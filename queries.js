@@ -64,10 +64,22 @@ const editItem = (request, response) => {
     )
 }
 
+const deleteItem = (request, response) => {
+    const id = parseInt(request.params.id)
+  
+    pool.query('DELETE FROM public.item WHERE id = $1', [id], (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Item with ID ${id} deleted successfully`)
+    })
+}
+
 
 module.exports = {
     getItems,
     getDeletedItems,
     addItem,
-    editItem
+    editItem,
+    deleteItem
 }

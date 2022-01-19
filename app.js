@@ -36,6 +36,7 @@ app.get('/items', db.getItems)
 app.get('/deletedItems', db.getDeletedItems)
 app.get('/addItem', db.addItem)
 app.get('/editItem/:id', db.editItem)
+app.get('/deleteItem/:id', db.deleteItem)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
