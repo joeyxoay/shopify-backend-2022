@@ -33,6 +33,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/items', db.getItems)
+app.get('/deletedItems', db.getDeletedItems)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

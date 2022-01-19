@@ -16,6 +16,16 @@ const getItems = (request, response) => {
     })
 }
 
+const getDeletedItems = (request, response) => {
+    pool.query('SELECT * FROM public.item WHERE deleted = true ORDER BY id ASC', (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).json(results.rows)
+    })
+}
+
 module.exports = {
-    getItems
+    getItems,
+    getDeletedItems
 }
