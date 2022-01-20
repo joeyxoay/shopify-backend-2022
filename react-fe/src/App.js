@@ -7,10 +7,11 @@ function App() {
   const [deletedItems, setDeletedItems] = useState([]);
   const [message, setMessage] = useState("");
   function callback(jsonRes){
+    setMessage(jsonRes);
     getItemsFE();
     getDeletedItemsFE();
-    setMessage(jsonRes);
   }
+
   const addItemFE = () => {
     let body = {
       title : document.getElementById("addTitle").value,

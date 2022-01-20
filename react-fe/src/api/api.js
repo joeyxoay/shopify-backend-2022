@@ -19,10 +19,7 @@ export async function addItem(body, successCallback, failCallback) {
         if(res.status != 200){
             failCallback(res.statusText)
         }else{
-            res.json()
-            .then(jsonRes => {
-                successCallback(res.statusText);
-            })
+            successCallback(body.title + " added succesfully");
         }
 	})
 	.catch(error => console.log(error));
@@ -48,10 +45,7 @@ export async function editItem(body, successCallback, failCallback) {
         if(res.status != 200){
             failCallback(res.statusText)
         }else{
-            res.json()
-            .then(jsonRes => {
-                successCallback(res.statusText);
-            })
+            successCallback(body.title + " edited succesfully");
         }
 	})
 	.catch(error => console.log(error));
@@ -74,10 +68,7 @@ export async function deleteItem(body, successCallback, failCallback) {
         if(res.status != 200){
             failCallback(res.statusText)
         }else{
-            res.json()
-            .then(jsonRes => {
-                successCallback(res.statusText);
-            })
+            successCallback("Item deleted succesfully");
         }
 	})
 	.catch(error => console.log(error));
@@ -99,10 +90,7 @@ export async function undeleteItem(body, successCallback, failCallback) {
         if(res.status != 200){
             failCallback(res.statusText)
         }else{
-            res.json()
-            .then(jsonRes => {
-                successCallback(res.statusText);
-            })
+            successCallback("Item undeleted succesfully");
         }
 	})
 	.catch(error => console.log(error));
