@@ -6,9 +6,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
 app.use(bodyParser.json())
@@ -27,15 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.get('/', (request, response) => {
-//   response.json({ info: 'Node.js, Express, and Postgres API' })
-// });
-app.get('/', function (req, res) {
-  res.render('index',
-  { title : 'Home' }
-  )
-})
 
 app.get('/items', db.getItems)
 app.get('/deletedItems', db.getDeletedItems)
