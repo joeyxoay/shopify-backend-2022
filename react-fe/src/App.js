@@ -9,8 +9,13 @@ function App() {
   const [message, setMessage] = useState("");
   function callback(jsonRes){
     setMessage(jsonRes);
+    setItems([])
+    setDeletedItems([])
     getItemsFE();
     getDeletedItemsFE();
+  }
+  function callback2(jsonRes){
+    setMessage(jsonRes);
   }
 
   const addItemFE = () => {
@@ -53,14 +58,14 @@ function App() {
     function successCallback(jsonRes){
       setItems(jsonRes);
     }
-    getItems(successCallback, callback);
+    getItems(successCallback, callback2);
   }
 
   const getDeletedItemsFE = () => {
     function successCallback(jsonRes){
       setDeletedItems(jsonRes);
     }
-    getDeletedItems(successCallback, callback);
+    getDeletedItems(successCallback, callback2);
   }
 
   return (

@@ -17,7 +17,7 @@ export async function addItem(body, successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             successCallback(body.title + " added succesfully");
         }
@@ -43,7 +43,7 @@ export async function editItem(body, successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             successCallback(body.title + " edited succesfully");
         }
@@ -66,7 +66,7 @@ export async function deleteItem(body, successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             successCallback("Item deleted succesfully");
         }
@@ -88,7 +88,7 @@ export async function undeleteItem(body, successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             successCallback("Item undeleted succesfully");
         }
@@ -106,7 +106,7 @@ export async function getItems(successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             res.json()
             .then(jsonRes => {
@@ -127,7 +127,7 @@ export async function getDeletedItems(successCallback, failCallback) {
     })
 	.then(res => {
         if(res.status != 200){
-            failCallback(res.statusText)
+            failCallback(res.statusText.toString())
         }else{
             res.json()
             .then(jsonRes => {
