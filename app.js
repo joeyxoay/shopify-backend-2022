@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors');
 const db = require('./queries');;
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -8,6 +9,7 @@ var logger = require('morgan');
 
 var app = express();
 
+app.use(cors());
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
