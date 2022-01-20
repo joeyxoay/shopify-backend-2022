@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { addItem, deleteItem, editItem, getDeletedItems, getItems, undeleteItem } from './api/api';
+import Grid from '@material-ui/core/Grid';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -63,7 +64,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div style={{justifyContent:"center", marginLeft: 10, textAlign: "center"}}>
       <label>{message}</label>
       <form onSubmit={e => {
           e.preventDefault();
@@ -141,51 +142,69 @@ function App() {
         <button type="submit" value="SubmitAdd" onClick={()=>restoreItemFE()}>submit</button>
       </form>
 
-      <h1>Get Items</h1>
-      <button type="submit" value="SubmitAdd" onClick={()=>getItemsFE()}>submit</button>
-      {items.length == 0 ? null : 
-        items.map(item =>(
-          <div>
-            <div>
-              title: {item.title}
-            </div>
-            <div>
-              price: {item.price}
-            </div>
-            <div>
-              description: {item.description}
-            </div>
-            <div>
-              quantity: {item.quantity}
-            </div>
-            <br/>
-          </div>
-        ))
-      }
-      <h1>Get Deleted Items</h1>
-      <button type="submit" value="SubmitAdd" onClick={()=>getDeletedItemsFE()}>submit</button>
-      {deletedItems.length == 0 ? null : 
-        deletedItems.map(item =>(
-          <div>
-            <div>
-              title: {item.title}
-            </div>
-            <div>
-              price: {item.price}
-            </div>
-            <div>
-              description: {item.description}
-            </div>
-            <div>
-              quantity: {item.quantity}
-            </div>
-            <div>
-              comment: {item.deletion_comment}
-            </div>
-            <br/>
-          </div>
-        ))
-      }
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="flex-start"
+        style={{justifyContent:"center"}}
+      >
+        <Grid item style={{marginRight: 300}}>
+          <h1>Get Items</h1>
+          <button type="submit" value="SubmitAdd" onClick={()=>getItemsFE()}>submit</button>
+          {items.length == 0 ? null : 
+            items.map(item =>(
+              <div>
+                <div>
+                  id: {item.id}
+                </div>
+                <div>
+                  title: {item.title}
+                </div>
+                <div>
+                  price: {item.price}
+                </div>
+                <div>
+                  description: {item.description}
+                </div>
+                <div>
+                  quantity: {item.quantity}
+                </div>
+                <br/>
+              </div>
+            ))
+          }
+        </Grid>
+        <Grid item>
+          <h1>Get Deleted Items</h1>
+          <button type="submit" value="SubmitAdd" onClick={()=>getDeletedItemsFE()}>submit</button>
+          {deletedItems.length == 0 ? null : 
+            deletedItems.map(item =>(
+              <div>
+                <div>
+                  id: {item.id}
+                </div>
+                <div>
+                  title: {item.title}
+                </div>
+                <div>
+                  price: {item.price}
+                </div>
+                <div>
+                  description: {item.description}
+                </div>
+                <div>
+                  quantity: {item.quantity}
+                </div>
+                <div>
+                  comment: {item.deletion_comment}
+                </div>
+                <br/>
+              </div>
+            ))
+          }
+        </Grid>
+      </Grid>
     </div>
   );
 }
